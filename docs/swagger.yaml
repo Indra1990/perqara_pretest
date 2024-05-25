@@ -1,0 +1,183 @@
+basePath: /
+definitions:
+  usecase.VendingMachine:
+    properties:
+      item:
+        type: string
+      price:
+        type: string
+      vandingMachineId:
+        type: string
+    type: object
+  usecase.VendingMachineRequestCommand:
+    properties:
+      item:
+        type: string
+      price:
+        type: string
+    type: object
+  usecase.VendingMachineUpdateCommand:
+    properties:
+      item:
+        type: string
+      price:
+        type: string
+    type: object
+  utils.ResponseBody:
+    properties:
+      code:
+        type: integer
+      data: {}
+      error: {}
+      message: {}
+      status:
+        type: string
+    type: object
+host: localhost:8081
+info:
+  contact:
+    email: muhammad.indra65@gmail.com
+    name: Muhammad Indra
+  license:
+    name: Test Perqara API
+  termsOfService: http://swagger.io/terms/
+  title: Test Perqara API
+  version: "2.0"
+paths:
+  /item/{itemId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete data item
+      parameters:
+      - description: itemId
+        in: path
+        name: itemId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.ResponseBody'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseBody'
+      summary: Delete Item
+      tags:
+      - Test-Perqara
+    get:
+      consumes:
+      - application/json
+      description: Detail data item
+      parameters:
+      - description: itemId
+        in: path
+        name: itemId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/utils.ResponseBody'
+            - properties:
+                data:
+                  $ref: '#/definitions/usecase.VendingMachine'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseBody'
+      summary: Detail Item
+      tags:
+      - Test-Perqara
+    put:
+      consumes:
+      - application/json
+      description: Update data item
+      parameters:
+      - description: itemId
+        in: path
+        name: itemId
+        required: true
+        type: string
+      - description: Request
+        in: body
+        name: Item
+        required: true
+        schema:
+          $ref: '#/definitions/usecase.VendingMachineUpdateCommand'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.ResponseBody'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseBody'
+      summary: Update Item
+      tags:
+      - Test-Perqara
+  /item/create:
+    post:
+      consumes:
+      - application/json
+      description: add data item
+      parameters:
+      - description: Request
+        in: body
+        name: Item
+        required: true
+        schema:
+          $ref: '#/definitions/usecase.VendingMachineRequestCommand'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.ResponseBody'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseBody'
+      summary: Create Item
+      tags:
+      - Test-Perqara
+  /items:
+    get:
+      consumes:
+      - application/json
+      description: get data item list
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/utils.ResponseBody'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/usecase.VendingMachine'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseBody'
+      summary: Get List Item
+      tags:
+      - Test-Perqara
+swagger: "2.0"

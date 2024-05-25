@@ -1,0 +1,18 @@
+httpserver:
+    host: 0.0.0.0
+    port: "8081"
+
+log: ""
+
+verbose: false
+
+sqldb:
+    pgsql:
+        host: localhost
+        user: postgres
+        port: "5432"
+        database: transactions 
+        password: postgres
+        maxopenconn: 30
+        maxidleconn: 1000
+    
